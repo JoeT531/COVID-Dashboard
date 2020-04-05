@@ -23,10 +23,12 @@ shinyUI(fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel("CDC Vulnerability Index",
-        tableOutput("cdc_table")
+        tableOutput("cdc_table"),
+        leafletOutput("tract_map")
         ),
         # Show a plot of the generated distribution
         mainPanel(leafletOutput("map"),
+               #   leafletOutput("tract_map"),
                   verbatimTextOutput("click_table")
                 #  renderDataTable("cdc_stats")
                   

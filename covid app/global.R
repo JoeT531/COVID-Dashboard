@@ -14,7 +14,12 @@ covid_data <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/
 
 cdc_social_vul<-read_csv("datafiles/county_cdc_social_vulnerability.csv")
 
+#cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
 
+cdc_cocial_vul_tract<-read_csv("C:/Users/joet/Documents/GitHub/COVID-Dashboard/covid app/datafiles/tract_cdc_social_vulnerability.csv")
+
+#=================================
+# Getting census county data
 #census_api_key("2e813467b85f18e31859f48cefdd60a3ef4aa81e", install = TRUE)
 
 mi <- get_acs(geography = "county", 
@@ -25,9 +30,20 @@ mi <- get_acs(geography = "county",
             #  options(tigris_use_cache = TRUE)
               )
 
+#====================================
+# Getting census tract data 
+mi_tract <- get_acs(geography = "tract", 
+              variables = "B19013_001", 
+              geometry = TRUE,
+              state = 'MI',
+              year = 2018
+              #  options(tigris_use_cache = TRUE)
+)
 
-# Join the three 
 
+#=============================
+# Join the three for county
+#============================
 map_data<-mi%>%
   left_join(covid_data, by = c("GEOID" = "fips"))%>%
   left_join(cdc_social_vul%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
@@ -38,6 +54,21 @@ map_data<-mi%>%
          geometry)%>%
   replace_na(list(cases_per_10k = 0))
 
+
+#====================== 
+# Join for tract 
+#======================
+
+map_tract<-mi_tract%>%
+           left_join(cdc_cocial_vul_tract%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
+           select(GEOID,COUNTY,trans_crowding_pctle = RPL_THEME4)%>%
+           filter(COUNTY == 'Kent')
+
+map_tract%>%
+  st_transform(crs = "+proj=longlat +datum=WGS84") %>%
+  leaflet(width = "100%") %>%
+  addProviderTiles(providers$Stamen.TonerLite)%>%
+  addPolygons()
 
 # Making the map 
 
