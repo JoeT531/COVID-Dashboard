@@ -128,8 +128,6 @@ output$tract_map <-renderLeaflet({
 })
 
 
-
-
 ## Table 
 
 output$click_table <-renderText({
@@ -142,7 +140,6 @@ output$click_table <-renderText({
     
     
 })
-
 
 output$cdc_table<-renderTable({
     
@@ -161,9 +158,4 @@ output$cdc_table<-renderTable({
 })
 
 
-
-
-    
-    
-    
 })
