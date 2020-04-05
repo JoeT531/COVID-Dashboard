@@ -13,13 +13,12 @@
 
 library(shiny)
 library(leaflet)
-
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-    
+
     # Application title
     titlePanel("COVID Map"),
-    
+
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel("CDC Vulnerability Index",
@@ -31,10 +30,9 @@ shinyUI(fluidPage(
                #   leafletOutput("tract_map"),
                   verbatimTextOutput("click_table")
                 #  renderDataTable("cdc_stats")
-                  
+
         )
     )
 ))
-
 
 
