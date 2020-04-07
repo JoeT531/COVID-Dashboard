@@ -14,9 +14,9 @@ covid_data <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/
 
 cdc_social_vul<-read_csv("datafiles/county_cdc_social_vulnerability.csv")
 
-#cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
+cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
 
-cdc_cocial_vul_tract<-read_csv("C:/Users/joet/Documents/GitHub/COVID-Dashboard/covid app/datafiles/tract_cdc_social_vulnerability.csv")
+# cdc_cocial_vul_tract<-read_csv("C:/Users/joet/Documents/GitHub/COVID-Dashboard/covid app/datafiles/tract_cdc_social_vulnerability.csv")
 
 #=================================
 # Getting census county data
