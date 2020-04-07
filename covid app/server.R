@@ -13,35 +13,6 @@ library(shiny)
 shinyServer(function(input, output) {
     
     
-    ### Reactive Input
-    org_input<-reactive(input$org)
-    metric_input<-reactive(input$metric)
-    
-    
-
-    ### UI Components
-    
-    output$CMH_PIHP<-renderUI({
-        
-        selectInput(inputId = "org",
-                    label = "Org",
-                    choices = c("pihp","cmhsp"),
-                    selected = 'pihp')
-        
-    })
-    
-    
-    
-    output$metric<-renderUI({
-        
-        selectInput(inputId = "metric",
-                    label = "metric",
-                    choices = c("cost","units"),
-                    selected = 'pihp')
-        
-    })
-    
-    
     
     ### Map
 output$map<-renderLeaflet({
