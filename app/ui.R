@@ -28,7 +28,8 @@ shinyUI(fluidPage(
         # Show a plot of the generated distribution
         mainPanel(leafletOutput("map"),
                #   leafletOutput("tract_map"),
-                  verbatimTextOutput("click_table")
+                  verbatimTextOutput("click_table"),
+                  verbatimTextOutput("Click_tract")
                 #  renderDataTable("cdc_stats")
 
         )

@@ -70,7 +70,7 @@ output$tract_map <-renderLeaflet({
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
         addProviderTiles(providers$Stamen.TonerLite)%>%
-        addPolygons(   stroke = FALSE,
+        addPolygons(   stroke = FALSE, data = map_tract,
                        smoothFactor = 0,
                        fillOpacity = 0.5,
                        color = ~ binpal_tract(trans_crowding_pctle),
@@ -83,6 +83,13 @@ output$tract_map <-renderLeaflet({
                            fillOpacity = 0.7,
                            bringToFront = TRUE)
                        
+        )%>%
+        addCircles(data = lara,
+                   lat = ~lat,
+                   lng = ~lon,
+                   weight = ~ log(Capacity),
+                   radius = 4,
+                   color = "blue"
         )%>%
         addLegend("bottomright", 
                   pal = binpal2_tract, 
@@ -98,7 +105,7 @@ output$tract_map <-renderLeaflet({
     
 })
 
-
+#input$mymap_shape_click$lng
 ## Table 
 
 output$click_table <-renderText({
@@ -111,6 +118,20 @@ output$click_table <-renderText({
     
     
 })
+
+### Testing 
+output$click_tract <-renderText({
+    
+    d<-input$map_bounds
+# e<-names(d)
+  #  d<-d$id
+    
+    print(d)
+    
+    
+})
+
+
 
 output$cdc_table<-renderTable({
     
