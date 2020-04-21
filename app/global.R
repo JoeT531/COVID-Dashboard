@@ -6,6 +6,7 @@ library(sf)
 library(viridis)
 library(DT)
 library(lubridate)
+options(tigris_use_cache = TRUE)
 
 covid_data <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")%>%
   filter(state == "Michigan")%>%
@@ -41,6 +42,30 @@ mi_tract <- get_acs(geography = "tract",
               year = 2018
               #  options(tigris_use_cache = TRUE)
 )
+
+
+#================
+# LARA Data 
+#================
+
+
+lara<-read_csv("datafiles/LARA.csv")%>%
+  mutate(Expiration = ymd(Expiration))%>%
+  filter(Expiration >= ymd(Sys.Date()))%>%
+  distinct()%>%
+  mutate(NAME = str_to_sentence(county_name))
+
+
+
+
+county_only<-mi%>%
+  ungroup()%>%
+  select(GEOID,NAME)%>%
+  mutate(CountyID = as.numeric(str_sub(GEOID,-2,-1)))
+
+lara_county<-lara%>%
+  left_join(county_only, by = "NAME")
+
 
 
 #=============================

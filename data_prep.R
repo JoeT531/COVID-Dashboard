@@ -1,4 +1,4 @@
-
+library(DBI)
 
 con_mshn_tbd <- 
   DBI::dbConnect(
@@ -14,17 +14,39 @@ con_mshn_tbd <-
 
 
 LARA_addresses <- dbGetQuery(con_mshn_tbd, 
-                             "select * from [dbo].[lara_geocoded]")
+                             
+                             "select distinct
+                             a.CountyID
+                             ,FacilityName
+                             ,a.fcltylat as lat
+                             ,a.fcltylon as lon
+                             ,a.Licensee as parent_org
+                             ,a.Capacity
+                             ,b.county_name
+                             ,a.Expiration
+                             ,a.Fcltyaddress
+                             ,a.address
+                             from [MSHN_TBD].[dbo].[lara_geocoded] as a
+                             left join  mshn_bi.dbo.mi_county_codes as b 
+                             on a.CountyID = b.mi_number")
 
-    lara<-read_csv("app/datafiles/LARA.csv")%>%
-    mutate(Expiration = ymd(Expiration))%>%
-       filter(Expiration >= ymd(Sys.Date()))%>%
-      select(FacilityName,Fcltyaddress,Capacity,lat = FcltyLat, lon = FcltyLon, parent_org = Licensee)%>%
-      distinct()
+lara<-read_csv("app/datafiles/LARA.csv")%>%
+mutate(Expiration = ymd(Expiration))%>%
+filter(Expiration >= ymd(Sys.Date()))%>%
+distinct()%>%
+mutate(NAME = str_to_sentence(county_name))
 
-names(lara)
 
-map<-
+    
+    
+county_only<-mi%>%
+              ungroup()%>%
+              select(GEOID,NAME)%>%
+              mutate(CountyID = as.numeric(str_sub(GEOID,-2,-1)))
+
+lara_county<-lara%>%
+      left_join(county_only, by = "NAME")
+
   
   
   map_data%>%

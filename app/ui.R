@@ -29,7 +29,7 @@ shinyUI(fluidPage(
         mainPanel(leafletOutput("map"),
                #   leafletOutput("tract_map"),
                   verbatimTextOutput("click_table"),
-                  verbatimTextOutput("Click_tract")
+                  verbatimTextOutput("Click_bounds")
                 #  renderDataTable("cdc_stats")
 
         )

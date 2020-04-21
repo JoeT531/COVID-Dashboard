@@ -66,9 +66,13 @@ output$tract_map <-renderLeaflet({
     binpal2_tract <- colorBin( viridis_pal(option = "A",direction = -1)(5),
                          bins = 4,domain = seq(0,1,na.rm = T),.25)
     
+    lara_only_one_county<-lara_county%>%
+    filter(NAME == d)
+    
     map_tract%>%
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
+       #  setView(input$map_click[[2]], input$map_click[[1]], zoom = 8.5)%>%
         addProviderTiles(providers$Stamen.TonerLite)%>%
         addPolygons(   stroke = FALSE, data = map_tract,
                        smoothFactor = 0,
@@ -84,7 +88,7 @@ output$tract_map <-renderLeaflet({
                            bringToFront = TRUE)
                        
         )%>%
-        addCircles(data = lara,
+        addCircles(data =  lara_only_one_county,
                    lat = ~lat,
                    lng = ~lon,
                    weight = ~ log(Capacity),
@@ -120,13 +124,13 @@ output$click_table <-renderText({
 })
 
 ### Testing 
-output$click_tract <-renderText({
+output$Click_bounds <-renderText({
     
-    d<-input$map_bounds
+    d<- input$map_click[[1]]
 # e<-names(d)
   #  d<-d$id
     
-    print(d)
+#    print(d)
     
     
 })
