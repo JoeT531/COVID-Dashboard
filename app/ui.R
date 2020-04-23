@@ -14,16 +14,24 @@
 library(shiny)
 library(leaflet)
 # Define UI for application that draws a histogram
-ui <- navbarPage("My Application",
-                 tabPanel("Component 1",
+ui <- navbarPage("COVID19",
+                 tabPanel("COVID 19 - AFC Montitoring",
+                          tags$style(
+                              type = "text/css",
+                              ".shiny-output-error { visibility: hidden; }",
+                              ".shiny-output-error:before { visibility: hidden; }"
+                          ),
                           sidebarLayout(
-                              sidebarPanel(leafletOutput("map"),
+                              sidebarPanel(leafletOutput("county_map"),
                                            br(),
                                            plotlyOutput("county_graph")),
                               mainPanel(
-                                     tableOutput("cdc_table"),
-                                     leafletOutput("tract_map"))
-                          )),
+                                   fluidRow( column(12,
+                                                    column(8,leafletOutput("tract_map")),
+                                                    column(4,plotlyOutput("tract_graph")))),
+                                 #  tableOutput("cdc_table"),
+                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
+                          ))),
                  tabPanel("Component 2"),
                  tabPanel("Component 3")
 )

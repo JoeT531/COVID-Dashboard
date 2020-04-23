@@ -15,7 +15,7 @@ shinyServer(function(input, output) {
     
     
     ### Map
-output$map<-renderLeaflet({
+output$county_map<-renderLeaflet({
     
         #  req(data())
         map_data %>%
@@ -52,13 +52,13 @@ output$map<-renderLeaflet({
 
 output$tract_map <-renderLeaflet({
     
-    d<-input$map_shape_click
+    d<-input$county_map_shape_click
     d<-data.frame(d$id)%>%
         pull()
     
     map_tract<-mi_tract%>%
         left_join(cdc_cocial_vul_tract%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
-        select(GEOID,COUNTY,trans_crowding_pctle = RPL_THEME4)%>%
+        select(GEOID,NAME,COUNTY,`Vulnerability Index` = RPL_THEMES)%>%
         filter(COUNTY == d)
     
     
@@ -92,11 +92,6 @@ output$tract_map <-renderLeaflet({
     
     
     
-    
-    
-    
-    
-    
     map_tract%>%
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
@@ -105,9 +100,10 @@ output$tract_map <-renderLeaflet({
         addPolygons(   stroke = FALSE, data = map_tract,
                        smoothFactor = 0,
                        fillOpacity = 0.5,
-                       color = ~ binpal_tract(trans_crowding_pctle),
+                       color = ~ binpal_tract(`Vulnerability Index`),
                        # color = border_col,
                        dashArray = "3",
+                       layerId = ~NAME,
                        highlight = highlightOptions(
                            weight = 5,
                            color = "#FF5500",
@@ -124,10 +120,10 @@ output$tract_map <-renderLeaflet({
                    color = "blue",
                    popup = ~popup
         )%>%
-        addLegend("bottomright", 
+        addLegend("bottomleft", 
                   pal = binpal2_tract, 
-                  values = ~ trans_crowding_pctle,
-                  title = "Crowding",
+                  values = ~ `Vulnerability Index`,
+                  title = "Vulnerability Index",
                   opacity = 1) 
 
     
@@ -143,7 +139,7 @@ output$tract_map <-renderLeaflet({
 
 output$click_table <-renderText({
     
-    d<-input$map_shape_click
+    d<-input$county_map_shape_click
    # e<-names(d)
     d<-d$id
     
@@ -155,7 +151,7 @@ output$click_table <-renderText({
 ### Testing 
 output$Click_bounds <-renderText({
     
-    d<- input$map_click[[1]]
+    d<- input$tract_map_shape_mouseover[[1]]
 # e<-names(d)
   #  d<-d$id
     
@@ -168,7 +164,7 @@ output$Click_bounds <-renderText({
 
 output$cdc_table<-renderTable({
     
-    d<-input$map_shape_click
+    d<-input$county_map_shape_click
     d<-data.frame(d$id)%>%
         pull()
         
@@ -192,6 +188,51 @@ output$county_graph<-renderPlotly({
   
   
 })
+
+
+
+output$tract_graph<-renderPlotly({
+  
+  mouseover_event <- input$tract_map_shape_mouseover[[1]]
+  
+  df<-cdc_cocial_vul_tract%>%
+      filter(LOCATION == 	mouseover_event)%>%
+      select(LOCATION, Socioeconomic = RPL_THEME1,
+                      `Household Comp.` = RPL_THEME2,
+                      `Minority/Languge` = RPL_THEME3,
+                      `Housing/Transportation` = RPL_THEME4,
+             )%>%
+    pivot_longer(cols = 2:5)%>%
+    mutate(name = fct_reorder(as.factor(name),value),
+           value = value * 100)
+  
+  title <-as.character(max(df$LOCATION))
+  
+p<-ggplot(df,aes(x = name, y = value))+
+  geom_bar(stat="identity", position=position_dodge(), alpha = .8,
+                                                  color="black")+
+  theme_minimal()+
+  xlab("CDC Vulnerability Index Components")+
+ ylab('State Percentile')+
+
+  theme(axis.text.x=element_text(angle=45, hjust=1)
+        ,plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5)
+      # , text=element_text(size=16, family="Comic Sans MS")
+        
+  )
+
+ggplotly(p)
+  
+  
+  
+})
+
+
+
+
+
+
 
 
 })
