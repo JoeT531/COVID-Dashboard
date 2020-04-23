@@ -26,23 +26,23 @@ cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
 # Getting census county data
 #census_api_key("2e813467b85f18e31859f48cefdd60a3ef4aa81e", install = TRUE)
 
-#mi <- get_acs(geography = "county", 
-#              variables = "B19013_001", 
-#              geometry = TRUE,
-#              state = 'MI',
-#              year = 2018
+mi <- get_acs(geography = "county", 
+              variables = "B19013_001", 
+              geometry = TRUE,
+              state = 'MI',
+              year = 2018
             #  options(tigris_use_cache = TRUE)
-#              )
+              )
 
 #====================================
 # Getting census tract data 
-#mi_tract <- get_acs(geography = "tract", 
-#              variables = "B19013_001", 
-#              geometry = TRUE,
-#              state = 'MI',
-#              year = 2018
+mi_tract <- get_acs(geography = "tract", 
+              variables = "B19013_001", 
+              geometry = TRUE,
+              state = 'MI',
+              year = 2018
               #  options(tigris_use_cache = TRUE)
-#)
+)
 
 
 #================
