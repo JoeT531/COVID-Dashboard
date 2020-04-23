@@ -71,6 +71,32 @@ output$tract_map <-renderLeaflet({
     lara_only_one_county<-lara_county%>%
     filter(NAME == d)
     
+    #========
+    # Popup
+    #========
+    popup<-paste(
+      "<div>",
+      "<h3>",
+     lara$FacilityName,
+      "</h3>",
+      "Address: ",
+      lara$address,
+     "<br>",
+     "Capacity: ",
+     lara$Capacity,
+     "<br>",
+     "Parent Org: ",
+     lara$parent_org
+     
+    )
+    
+    
+    
+    
+    
+    
+    
+    
     map_tract%>%
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
@@ -87,7 +113,7 @@ output$tract_map <-renderLeaflet({
                            color = "#FF5500",
                            dashArray = "0.3",
                            fillOpacity = 0.7,
-                           bringToFront = TRUE)
+                           bringToFront = F)
                        
         )%>%
         addCircles(data =  lara_only_one_county,
@@ -95,7 +121,8 @@ output$tract_map <-renderLeaflet({
                    lng = ~lon,
                    weight = ~ log(Capacity),
                    radius = 4,
-                   color = "blue"
+                   color = "blue",
+                   popup = ~popup
         )%>%
         addLegend("bottomright", 
                   pal = binpal2_tract, 

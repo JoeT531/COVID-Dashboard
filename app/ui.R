@@ -14,30 +14,16 @@
 library(shiny)
 library(leaflet)
 # Define UI for application that draws a histogram
-shinyUI(
-    fluidPage(
-        fluidRow(
-       column(width = 12,div(style = "height:50px;background-color: grey;", "title")),
- #   fluidRow(
-          column(width = 4,div(style = "height:50px;background-color: lightblue;"),
-                   fluidRow(
-                    column(10,offset = 1,tags$style(type = "text/css", "html, body {width:100%; height:100%}"),
-                           
-                           leafletOutput("map")),
-                    column(10,offset = 1,
-                           div(style = "height:250px;background-color: grey;",plotlyOutput("county_graph")))
-                       
-                   )),
-             column(width = 8,
-                        fluidRow(
-                            column(12,tableOutput("cdc_table")),
-                            column(12,leafletOutput("tract_map")),
-                        )),
-    
-            ),
-    
-    hr(),
-    fluidRow(column(12,div(style = "height:50px;background-color: grey;", "title")))
-    ))
-
-
+ui <- navbarPage("My Application",
+                 tabPanel("Component 1",
+                          sidebarLayout(
+                              sidebarPanel(leafletOutput("map"),
+                                           br(),
+                                           plotlyOutput("county_graph")),
+                              mainPanel(
+                                     tableOutput("cdc_table"),
+                                     leafletOutput("tract_map"))
+                          )),
+                 tabPanel("Component 2"),
+                 tabPanel("Component 3")
+)
