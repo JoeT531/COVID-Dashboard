@@ -14,26 +14,31 @@
 library(shiny)
 library(leaflet)
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
-
-    # Application title
-    titlePanel("COVID Map"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel("CDC Vulnerability Index",
-        tableOutput("cdc_table"),
-        leafletOutput("tract_map")
-        ),
-        # Show a plot of the generated distribution
-        mainPanel(leafletOutput("map"),
-               #   leafletOutput("tract_map"),
-                  verbatimTextOutput("click_table"),
-                  verbatimTextOutput("Click_bounds")
-                #  renderDataTable("cdc_stats")
-
-        )
-    )
-))
+shinyUI(
+    fluidPage(
+        fluidRow(
+        column(width = 12,div(style = "height:50px;background-color: grey;", "title"))),
+        fluidRow(
+            column(12,
+                   tags$header("Click on a County to explore track level data"),   
+    fluidRow(column(width = 4, 
+                   fluidRow(
+                    column(12,tags$style(type = "text/css", "html, body {width:100%; height:100%}"),
+                           
+                           leafletOutput("map")),
+                    column(12,div(style = "height:250px;background-color: grey;",plotlyOutput("county_graph")))
+                       
+                   )),
+             column(width = 7,
+                        fluidRow(
+                            column(12,tableOutput("cdc_table")),
+                            column(12,leafletOutput("tract_map")),
+                        ))),
+    
+            )),
+    
+    hr(),
+    fluidRow(column(12,div(style = "height:50px;background-color: grey;", "title")))
+    ))
 
 

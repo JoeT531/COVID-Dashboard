@@ -21,6 +21,7 @@ output$map<-renderLeaflet({
         map_data %>%
             st_transform(crs = "+proj=longlat +datum=WGS84") %>%
             leaflet(width = "100%") %>%
+            setView(-85.70214763,43.95043432,zoom = "6")%>%
             addProviderTiles(providers$Stamen.TonerLite)%>%
             addPolygons(
                 stroke = FALSE,
@@ -40,6 +41,7 @@ output$map<-renderLeaflet({
             )%>%
             addLegend("bottomright", 
                       pal = binpal2, 
+                      position = "bottomleft",
                       values = ~ cases_per_10k,
                       title = "COVID Cases Per 10K",
                       opacity = 1) 
@@ -151,6 +153,17 @@ output$cdc_table<-renderTable({
     
     
     
+})
+
+
+
+output$county_graph<-renderPlotly({
+
+  ggplotly(ggplot(covid_data[1:10,],aes(x = county, y = deaths)) + geom_bar(stat = 'identity')
+           ,width = 400, height = 300)
+  
+  
+  
 })
 
 
