@@ -43,7 +43,7 @@ output$map<-renderLeaflet({
                       pal = binpal2, 
                       position = "bottomleft",
                       values = ~ cases_per_10k,
-                      title = "COVID Cases Per 10K",
+                      title = "Cases Per 10K",
                       opacity = 1) 
         
         
