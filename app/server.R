@@ -178,12 +178,22 @@ output$cdc_table<-renderTable({
     
 })
 
-
+library(hrbrthemes)
 
 output$county_graph<-renderPlotly({
+  
+  county_click<-input$county_map_shape_click
+  county_click<-data.frame(county_click$id)%>%
+    pull()
+  
+  df<-proj_5%>%
+      filter(county == "Calhoun County MI")
 
-  ggplotly(ggplot(covid_data[1:10,],aes(x = county, y = deaths)) + geom_bar(stat = 'identity')
-           ,width = 400, height = 300)
+p<- ggplot(df,aes(x = date,y = report_median))+geom_line()+
+    theme_ipsum() +
+    ylab("Projection")
+
+ggplotly(p)
   
   
   
