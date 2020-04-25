@@ -87,10 +87,10 @@ map_data<-mi%>%
 # Join for tract 
 #======================
 
-map_tract<-mi_tract%>%
-           left_join(cdc_cocial_vul_tract%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
-           select(GEOID,COUNTY,trans_crowding_pctle = RPL_THEME4)%>%
-           filter(COUNTY == 'Kent')
+#map_tract<-mi_tract%>%
+#           left_join(cdc_cocial_vul_tract%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
+#           select(GEOID,COUNTY,trans_crowding_pctle = RPL_THEME4)%>%
+#           filter(COUNTY == 'Kent')
 
 map_tract%>%
   st_transform(crs = "+proj=longlat +datum=WGS84") %>%

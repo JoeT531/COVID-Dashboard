@@ -24,8 +24,12 @@ ui <- navbarPage("COVID19",
                           sidebarLayout(
                               sidebarPanel(leafletOutput("county_map"),
                                            br(),
-                                           plotlyOutput("county_graph")),
+                                         #  plotlyOutput("county_graph")
+                                         ),
                               mainPanel(
+                                   fluidRow(
+                                             column(12,div(style = "height:200px",
+                                                           plotlyOutput("county_graph")))),
                                    fluidRow( column(12,
                                                     column(8,leafletOutput("tract_map")),
                                                     column(4,plotlyOutput("tract_graph")))),

@@ -179,6 +179,7 @@ output$cdc_table<-renderTable({
 })
 
 library(hrbrthemes)
+library(gganimate)
 
 output$county_graph<-renderPlotly({
   
@@ -186,16 +187,36 @@ output$county_graph<-renderPlotly({
   county_click<-data.frame(county_click$id)%>%
     pull()
   
-  df<-proj_5%>%
-      filter(county == "Calhoun County MI")
-
-p<- ggplot(df,aes(x = date,y = report_median))+geom_line()+
-    theme_ipsum() +
-    ylab("Projection")
-
-ggplotly(p)
+  #county_click<-"Kent"
   
-  
+df<-proj_5%>%
+    filter(!county == county_click)
+
+df1<-proj_5%>%
+  filter(county == county_click)
+
+
+p<-df %>%
+  ggplot( aes(x=date, y=report_median, group = county)) +
+  geom_line( color = 'lightgrey') +
+  ggtitle("County Projections at various rate") +
+  theme_ipsum() +
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  )
+
+pp<-p+geom_line(data = df1, aes(x=date, y=report_median, group = county),color = "salmon", size = .75)
+
+ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 300)
+
+
+
+
+
+
+
+
   
 })
 
