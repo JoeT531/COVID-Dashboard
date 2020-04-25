@@ -34,7 +34,8 @@ ui <- navbarPage("COVID19",
                                                     column(8,leafletOutput("tract_map")),
                                                     column(4,plotlyOutput("tract_graph")))),
                                  #  tableOutput("cdc_table"),
-                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
+                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds"))),
+                                    verbatimTextOutput("click_table")
                           ))),
                  tabPanel("Component 2"),
                  tabPanel("Component 3")
