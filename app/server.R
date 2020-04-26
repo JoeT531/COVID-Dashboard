@@ -51,22 +51,22 @@ output$county_map<-renderLeaflet({
     })
 
 output$tract_map <-renderLeaflet({
-    
-    
+  
+  binpal2_tract <- colorBin( viridis_pal(option = "A",direction = -1)(5),
+                             bins = 4,domain = seq(0,1,na.rm = T),.25)  
     
   
     map_tract%>%
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
-    #     setView(input$map_click[[2]], input$map_click[[1]], zoom = 8.5)%>%
     setView(-85.70214763,43.95043432,zoom = "6")%>%
-        addProviderTiles(providers$Stamen.TonerLite)
+        addProviderTiles(providers$Stamen.TonerLite)%>%
 
-     #   addLegend("bottomleft", 
-    #              pal = binpal2_tract, 
-    #              values = ~ `Vulnerability Index`,
-    #              title = "Vulnerability Index",
-    #              opacity = 1) 
+        addLegend("bottomleft", 
+                  pal = binpal2_tract, 
+                 values = seq(0,1,.1),
+                 title = "Vulnerability Index",
+                 opacity = 1) 
 
     
 })

@@ -1,13 +1,13 @@
-library(tidycensus)
+#library(tidycensus)
 library(tidyverse)
 library(leaflet)
-library(sp)
+#library(sp)
 library(sf)
 library(viridis)
 library(DT)
 library(lubridate)
 library(plotly)
-options(tigris_use_cache = TRUE)
+#options(tigris_use_cache = TRUE)
 
 covid_data <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")%>%
   filter(state == "Michigan")%>%
@@ -34,6 +34,12 @@ cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
             #  options(tigris_use_cache = TRUE)
 #              )
 
+#write_csv(mi,"app/datafiles/mi.csv")
+
+#write_rds(mi,"app/datafiles/mi")
+
+mi<-read_rds("datafiles/mi")
+
 #====================================
 # Getting census tract data 
 #mi_tract <- get_acs(geography = "tract", 
@@ -43,6 +49,10 @@ cdc_cocial_vul_tract<-read_csv("datafiles/tract_cdc_social_vulnerability.csv")
 #              year = 2018
               #  options(tigris_use_cache = TRUE)
 #)
+
+#write_rds(mi_tract,"app/datafiles/mi_tract")
+
+mi_tract<-read_rds("datafiles/mi_tract")
 
 
 #================
