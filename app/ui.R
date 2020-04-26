@@ -28,14 +28,14 @@ ui <- navbarPage("COVID19",
                                          ),
                               mainPanel(
                                    fluidRow(
-                                             column(12,div(style = "height:200px",
+                                             column(12,div(style = "height:225px",
                                                            plotlyOutput("county_graph")))),
                                    fluidRow( column(12,
                                                     column(8,leafletOutput("tract_map")),
                                                     column(4,plotlyOutput("tract_graph")))),
                                  #  tableOutput("cdc_table"),
-                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds"))),
-                                    verbatimTextOutput("click_table")
+                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
+                                   # verbatimTextOutput("click_table")
                           ))),
                  tabPanel("Component 2"),
                  tabPanel("Component 3")

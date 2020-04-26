@@ -59,7 +59,7 @@ output$tract_map <-renderLeaflet({
         st_transform(crs = "+proj=longlat +datum=WGS84") %>%
         leaflet(width = "100%") %>%
     #     setView(input$map_click[[2]], input$map_click[[1]], zoom = 8.5)%>%
-  #  setView(-85.70214763,43.95043432,zoom = "6")%>%
+    setView(-85.70214763,43.95043432,zoom = "6")%>%
         addProviderTiles(providers$Stamen.TonerLite)
 
      #   addLegend("bottomleft", 
@@ -120,7 +120,6 @@ observeEvent(input$county_map_shape_click,{
   leafletProxy("tract_map")%>%
      clearShapes()%>%
    clearMarkerClusters()%>%
-   # setView(-85.70214763,43.95043432,zoom = "6")%>%
   setView(lat, lon, zoom = 8.5)%>%
   addPolygons(   stroke = FALSE, data = map_tract,
                  smoothFactor = 0,
@@ -225,16 +224,16 @@ df1<-proj_5%>%
 p<-df %>%
   ggplot( aes(x=date, y=report_median, group = county)) +
   geom_line( color = 'lightgrey') +
-  ggtitle("County Projections at various rate") +
-  theme_ipsum() +
-  theme(
-    legend.position="none",
-    plot.title = element_text(size=10)
-  )
+ # ggtitle("County Projections at various rate") +
+  theme_minimal()
+#  theme(
+ #   legend.position="none",
+  #  plot.title = element_text(size=10)
+  #)
 
 pp<-p+geom_line(data = df1, aes(x=date, y=report_median, group = county),color = "salmon", size = .75)
 
-ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 300)
+ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 200)
 
 
 
