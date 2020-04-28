@@ -22,9 +22,13 @@ ui <- navbarPage("COVID19",
                               ".shiny-output-error:before { visibility: hidden; }"
                           ),
                           sidebarLayout(
-                              sidebarPanel(leafletOutput("county_map"),
+                          
+                              sidebarPanel(
+                                p("use the below to filter counties to tracts"),
+                                leafletOutput("county_map"),
                                            br(),
-                                         #  plotlyOutput("county_graph")
+                                        p("Data for country level cases is taken from
+                                          the New York times and allows")
                                          ),
                               mainPanel(
                                    fluidRow(

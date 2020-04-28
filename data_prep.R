@@ -63,11 +63,35 @@ lara_county<-lara%>%
                    )
 
 
-f
-  addCircleMarkers()
+#============================
+# Projections dataset 
+#============================
+
+  
+  proj_5<-read_csv("app/datafiles/Projection_5%mobility.csv")%>%
+    mutate(state = str_squish(substr(county,nchar(county)-2,nchar(county))),
+           date = ymd(as.Date(Date,"%m/%d/%Y")),
+           county = str_squish(str_remove_all(county,"County MI")),
+           group =  "5%"
+           
+    )%>%
+    filter(state == "MI",
+           date > ymd(Sys.Date()))%>%
+    select(fips,county,date,report_median,group)
+  
+  
+  proj_50<-read_csv("app/datafiles/Projection_50%transmissibility.csv")%>%
+    mutate(state = str_squish(substr(county,nchar(county)-2,nchar(county))),
+           date = ymd(as.Date(Date,"%m/%d/%Y")),
+           county = str_squish(str_remove_all(county,"County MI")),
+           group = "50%")%>%
+    filter(state == "MI",
+           date > ymd(Sys.Date()))%>%
+    select(fips,county,date,report_median,group)
 
 
-
+write_csv(proj_5,"app/datafiles/proj_5.csv")
+  
 
 
 

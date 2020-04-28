@@ -203,8 +203,6 @@ output$cdc_table<-renderTable({
     
 })
 
-library(hrbrthemes)
-library(gganimate)
 
 output$county_graph<-renderPlotly({
   
@@ -226,21 +224,10 @@ p<-df %>%
   geom_line( color = 'lightgrey') +
  # ggtitle("County Projections at various rate") +
   theme_minimal()
-#  theme(
- #   legend.position="none",
-  #  plot.title = element_text(size=10)
-  #)
 
 pp<-p+geom_line(data = df1, aes(x=date, y=report_median, group = county),color = "salmon", size = .75)
 
 ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 200)
-
-
-
-
-
-
-
 
   
 })
