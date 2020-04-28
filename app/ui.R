@@ -21,16 +21,16 @@ ui <- navbarPage("COVID19",
                               ".shiny-output-error { visibility: hidden; }",
                               ".shiny-output-error:before { visibility: hidden; }"
                           ),
-                          sidebarLayout(
-                          
-                              sidebarPanel(
+                          fluidRow(
+                            column(3,wellPanel(
                                 p("use the below to filter counties to tracts"),
                                 leafletOutput("county_map"),
                                            br(),
                                         p("Data for country level cases is taken from
                                           the New York times and allows")
-                                         ),
-                              mainPanel(
+                                         )),
+                          
+                            column(9,
                                    fluidRow(
                                              column(12,div(style = "height:225px",
                                                            plotlyOutput("county_graph")))),
@@ -38,7 +38,7 @@ ui <- navbarPage("COVID19",
                                                     column(8,leafletOutput("tract_map")),
                                                     column(4,plotlyOutput("tract_graph")))),
                                  #  tableOutput("cdc_table"),
-                                     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
+                                #     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
                                    # verbatimTextOutput("click_table")
                           ))),
                  tabPanel("Component 2"),

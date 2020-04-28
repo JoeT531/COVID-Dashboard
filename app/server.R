@@ -204,6 +204,9 @@ output$cdc_table<-renderTable({
 })
 
 
+
+
+
 output$county_graph<-renderPlotly({
   
   county_click<-input$county_map_shape_click
@@ -212,23 +215,23 @@ output$county_graph<-renderPlotly({
   
   #county_click<-"Kent"
   
-df<-proj_5%>%
+  df<-proj_5%>%
     filter(!county == county_click)
-
-df1<-proj_5%>%
-  filter(county == county_click)
-
-
-p<-df %>%
-  ggplot( aes(x=date, y=report_median, group = county)) +
-  geom_line( color = 'lightgrey') +
- # ggtitle("County Projections at various rate") +
-  theme_minimal()
-
-pp<-p+geom_line(data = df1, aes(x=date, y=report_median, group = county),color = "salmon", size = .75)
-
-ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 200)
-
+  
+  df1<-proj_5%>%
+    filter(county == county_click)
+  
+  
+  p<-df %>%
+    ggplot( aes(x=date, y=report_median, group = county)) +
+    geom_line( color = 'lightgrey') +
+    # ggtitle("County Projections at various rate") +
+    theme_minimal()
+  
+  pp<-p+geom_line(data = df1, aes(x=date, y=report_median, group = county),color = "salmon", size = .75)
+  
+  ggplotly(pp)%>%layout(autosize = F, width = 1000, height = 200)
+  
   
 })
 
