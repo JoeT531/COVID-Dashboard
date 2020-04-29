@@ -40,6 +40,13 @@ ui <- navbarPage("COVID19",
                                  #  tableOutput("cdc_table"),
                                 #     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
                                    # verbatimTextOutput("click_table")
+                          )),
+                          fluidRow(column(12,offset = 4, 
+                                          tags$img(src = 'NewYorkTimes_Logo.png',width = '200px'),
+                                          tags$img(src = 'tbd_logo.png', width = "200px", 
+                                                                 align = "center"),
+                                          tags$img(src = 'CDC-logo.png',width = '70px',height = '50px')
+                                                                                              
                           ))),
                  tabPanel("Component 2"),
                  tabPanel("Component 3")
