@@ -23,12 +23,21 @@ ui <- navbarPage("COVID19",
                           ),
                           fluidRow(
                             column(3,wellPanel(
-                                p("use the below to filter counties to tracts"),
+                                p("County mapping is shaded based on the total number of 
+                                  reported cases per 10K of the population. Click on a county 
+                                  to see daily case projections through the summer and zoom in 
+                                  on tract data and see the which AFC's belong to particularly 
+                                  vulnerable neighborhoods"),
                                 leafletOutput("county_map"),
-                                           br(),
-                                        p("Data for country level cases is taken from
-                                          the New York times and allows")
-                                         )),
+                                        tags$li(
+                                          "Cases are updated daily from data 
+                                           collected by the New York Times (embed link)."),
+                                          tags$li("Social Vulnerability provided by the CDC ")
+                                          
+                                        ),
+
+                            tags$img(src = 'tbd_logo.png', width = "200px", 
+                                     align = "center")),
                           
                             column(9,
                                    fluidRow(
@@ -44,14 +53,14 @@ ui <- navbarPage("COVID19",
                                  #  tableOutput("cdc_table"),
                                 #     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
                                    # verbatimTextOutput("click_table")
-                          )),
-                          fluidRow(column(12,div(style = "height:1px",
+                          ))
+                         # fluidRow(column(12,div(style = "height:1px",
                                          # tags$img(src = 'NewYorkTimes_Logo.png',width = '200px'),
-                                          tags$img(src = 'tbd_logo.png', width = "200px", 
-                                                                 align = "center"),
+                           #               tags$img(src = 'tbd_logo.png', width = "200px", 
+                          #                                       align = "center"),
                                          # tags$img(src = 'CDC-logo.png',width = '70px',height = '50px')
                                                                                               
-                          )))),
+                          ),
                  tabPanel("Component 2"),
                  tabPanel("Component 3")
 )
