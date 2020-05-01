@@ -26,14 +26,15 @@ ui <- navbarPage("COVID19",
                                 p("County mapping is shaded based on the total number of 
                                   reported cases per 10K of the population. Click on a county 
                                   to see daily case projections through the summer and zoom in 
-                                  on tract data and see the which AFC's belong to particularly 
+                                  on tract data and see which AFC's belong to particularly 
                                   vulnerable neighborhoods"),
                                 leafletOutput("county_map"),
-                                        tags$li(
-                                          "Cases are updated daily from data 
-                                           collected by the New York Times (embed link)."),
-                                          tags$li("Social Vulnerability provided by the CDC ")
-                                          
+                                br(),
+                                     #   tags$ul(
+                                    #      "COVID Cases updated daily from data 
+                                    #       collected by the New York Times (embed link).")
+                                      #    tags$li("Social Vulnerability provided by the CDC ")
+                                      #    
                                         ),
 
                             tags$img(src = 'tbd_logo.png', width = "200px", 
@@ -41,8 +42,8 @@ ui <- navbarPage("COVID19",
                           
                             column(9,
                                    fluidRow(
-                                             column(12,div(style = "height:240px",
-                                                           p("county stats"),
+                                             column(12,div(style = "height:225px",
+                                                      #     p("county stats"),
                                                            plotlyOutput("county_graph")))),
                                    fluidRow(column(12,div(style = "height:25px",  wellPanel(style = "padding: .5px;")
                                                                                             
@@ -61,6 +62,6 @@ ui <- navbarPage("COVID19",
                                          # tags$img(src = 'CDC-logo.png',width = '70px',height = '50px')
                                                                                               
                           ),
-                 tabPanel("Component 2"),
+                 tabPanel("This is a pipelines test"),
                  tabPanel("Component 3")
 )
