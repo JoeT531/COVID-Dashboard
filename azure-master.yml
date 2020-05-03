@@ -14,6 +14,7 @@ variables:
   rgServiceConnection: 'TBD-SHARED-PROD-RscGrp'
   imageRepository: 'coviddashboard'
   webAppName: 'COVID19-AFC'
+  slotname: 'production'
   containerRegistry: 'tbdcontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
