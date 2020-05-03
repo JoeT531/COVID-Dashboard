@@ -48,6 +48,7 @@ stages:
     displayName: Deploy 
     pool:
       vmImage: $(vmImageName)
+      environment: covid_prod
       steps:     
       - task: AzureRmWebAppDeployment@4
       inputs:
