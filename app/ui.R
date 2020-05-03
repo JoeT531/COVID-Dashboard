@@ -63,5 +63,5 @@ ui <- navbarPage("COVID19",
                                                                                               
                           ),
                  tabPanel("This is a pipelines test"),
-                 tabPanel("Component 3")
+                 tabPanel("This too is a pipelines test")
 )
