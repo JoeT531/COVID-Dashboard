@@ -50,12 +50,15 @@ stages:
     pool:
       vmImage: $(vmImageName)
    #   environment: covid_prod
-      steps:     
-      - task: AzureRmWebAppDeployment@4
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: $(rgServiceConnection) 
-        WebAppName: $(WebAppName)
-        DockerNamespace: $(DockerNamespace)
-        DockerRepository: $(DockerRepository)
-        DockerImageTag: $(Build.BuildId)
+
+   steps:
+
+- task: AzureRMWebAppDeployment@4
+  displayName: Azure App Service Deploy
+  inputs:
+    appType: webAppContainer
+    azureSubscription: $(rgServiceConnection) 
+    WebAppName: $(WebAppName)
+    DockerNamespace: $(DockerNamespace)
+    DockerRepository: $(DockerRepository)
+    DockerImageTag: $(Build.BuildId)
