@@ -14,7 +14,6 @@ variables:
   rgServiceConnection: 'TBD-SHARED-PROD-RscGrp'
   imageRepository: 'coviddashboard'
   webAppName: 'COVID19-AFC'
-
   containerRegistry: 'tbdcontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -49,13 +48,14 @@ stages:
     displayName: Deploy 
     pool:
       vmImage: $(vmImageName)
-   #   environment: covid_prod
       steps:     
       - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: $(rgServiceConnection) 
-        WebAppName: $(WebAppName)
-        DockerNamespace: $(DockerNamespace)
-        DockerRepository: $(DockerRepository)
-        DockerImageTag: $(Build.BuildId)
+        appType: 'webAppContainer'
+        WebAppName: $(webAppName)
+        ResourceGroupName: $(rgName)
+        DockerNamespace: $(containerRegistry)
+        DockerRepository: $(imageRepository)
+        DockerImageTag: $(tag)
