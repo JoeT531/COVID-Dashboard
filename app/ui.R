@@ -62,6 +62,6 @@ ui <- navbarPage("COVID19",
                                          # tags$img(src = 'CDC-logo.png',width = '70px',height = '50px')
                                                                                               
                           ),
-                 tabPanel("This is a pipelines test"),
-                 tabPanel("This too is a pipelines test")
+                 tabPanel("pipelines test 3"),
+                 tabPanel("")
 )
