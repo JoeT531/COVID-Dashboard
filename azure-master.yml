@@ -39,7 +39,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-          
 
 - stage: 'Deploy'
   displayName: 'Deploy to webapp'
