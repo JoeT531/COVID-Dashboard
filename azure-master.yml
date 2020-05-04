@@ -37,7 +37,8 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
+        tags: 
+
           $(tag)
 
 - stage: 'Deploy'
@@ -48,14 +49,23 @@ stages:
     displayName: Deploy 
     pool:
       vmImage: $(vmImageName)
-      steps:     
+      steps:    
+       
+      settings
       - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: $(rgServiceConnection) 
+  
+        azureSubscription: $(rgServiceConnection)
+
         appType: 'webAppContainer'
+
         WebAppName: $(webAppName)
+
         ResourceGroupName: $(rgName)
+
         DockerNamespace: $(containerRegistry)
+
         DockerRepository: $(imageRepository)
+
         DockerImageTag: $(tag)
