@@ -49,8 +49,9 @@ stages:
     displayName: Deploy 
     pool:
       vmImage: $(vmImageName)
-      steps:     
-
+      steps:    
+       
+      settings
       - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
