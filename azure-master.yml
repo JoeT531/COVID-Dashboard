@@ -92,9 +92,9 @@ stages:
 
 
 
-- stage: 'Devlopment'
+- stage: 'Deploy'
 
-  displayName: 'Deploy to Dev Slot'
+  displayName: 'Deploy Webapp'
 
   condition: succeeded()
 
