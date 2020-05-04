@@ -52,6 +52,7 @@ stages:
       steps:    
 
       settings
+      
       - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
@@ -68,5 +69,5 @@ stages:
 
         DockerRepository: $(imageRepository)
 
-        
+
         DockerImageTag: $(tag)
