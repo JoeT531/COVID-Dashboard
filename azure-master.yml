@@ -37,7 +37,8 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        tags: $(tag)
+        tags: 
+          $(tag)
 
 - stage: 'Deploy'
   displayName: 'Deploy to webapp'
@@ -48,7 +49,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
       steps:     
-        settings
+
       - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
