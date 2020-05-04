@@ -50,7 +50,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
       steps:    
-       
+
       settings
       - task: AzureRmWebAppDeployment@4
       inputs:
@@ -68,4 +68,5 @@ stages:
 
         DockerRepository: $(imageRepository)
 
+        
         DockerImageTag: $(tag)
