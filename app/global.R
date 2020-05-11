@@ -8,6 +8,7 @@ library(DT)
 library(lubridate)
 library(plotly)
 #options(tigris_use_cache = TRUE)
+library(stringr)
 
 covid_data <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")%>%
   filter(state == "Michigan")%>%
@@ -68,7 +69,6 @@ lara<-read_csv("datafiles/LARA.csv")%>%
 
 
 
-
 county_only<-mi%>%
   ungroup()%>%
   select(GEOID,NAME)%>%
@@ -76,7 +76,6 @@ county_only<-mi%>%
 
 lara_county<-lara%>%
   left_join(county_only, by = "NAME")
-
 
 
 #=============================
