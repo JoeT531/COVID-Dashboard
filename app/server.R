@@ -73,11 +73,14 @@ output$tract_map <-renderLeaflet({
 
 
 observeEvent(input$county_map_shape_click,{
+
   
+d<-input$county_map_shape_click
+d<-data.frame(d$id)%>%
+  pull()
+
+
   
-  d<-input$county_map_shape_click
-  d<-data.frame(d$id)%>%
-    pull()
   
   map_tract<-mi_tract%>%
     left_join(cdc_cocial_vul_tract%>%mutate(FIPS = as.character(FIPS)), by = c("GEOID" = "FIPS"))%>%
@@ -161,11 +164,6 @@ observeEvent(input$county_map_shape_click,{
 
 
 
-
-
-
-
-
 #input$mymap_shape_click$lng
 ## Table 
 
@@ -216,11 +214,21 @@ output$cdc_table<-renderTable({
 
 output$county_graph<-renderPlotly({
   
-  county_click<-input$county_map_shape_click
-  county_click<-data.frame(county_click$id)%>%
-    pull()
+ 
+
   
-  #county_click<-"Kent"
+  
+county_click<-if(is.null(county_click)){
+  county_click<-"Kent"}else{
+    
+    county_click<-input$county_map_shape_click
+    county_click<-data.frame(county_click$id)%>%
+      pull()
+    
+    
+    
+    
+  }
   
   df<-proj_5%>%
     filter(!county == county_click)

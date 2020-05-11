@@ -22,12 +22,15 @@ ui <- navbarPage("COVID19",
                               ".shiny-output-error:before { visibility: hidden; }"
                           ),
                           fluidRow(
-                            column(3,wellPanel(
-                                p("County mapping is shaded based on the total number of 
-                                  reported cases per 10K of the population. Click on a county 
-                                  to see daily case projections through the summer and zoom in 
-                                  on tract data and see which AFC's belong to particularly 
-                                  vulnerable neighborhoods"),
+                            column(3,h4(id = "welltitle","Some more stuff here"),
+                                   tags$style(HTML("#welltitle{color:red;
+                                                               background:blue;")),
+                                   
+                                   
+                                   
+                                   
+                                   wellPanel(
+
                                 leafletOutput("county_map"),
                                 br(),
                                      #   tags$ul(
@@ -40,17 +43,25 @@ ui <- navbarPage("COVID19",
                             tags$img(src = 'tbd_logo.png', width = "200px", 
                                      align = "center")),
                           
-                            column(9,
-                                   fluidRow(
-                                             column(12,div(style = "height:225px",
-                                                      #     p("county stats"),
-                                                           plotlyOutput("county_graph")))),
-                                   fluidRow(column(12,div(style = "height:25px",  wellPanel(style = "padding: .5px;")
+                            column(9,h4(id="title", "County mapping is shaded based on the total number of 
+                                  reported cases per 10K of the population. Click on a county 
+                                  to see daily case projections through the summer and zoom in 
+                                  on tract data and see which AFC's belong to particularly 
+                                  vulnerable neighborhoods"),
+                                   tags$style(HTML("#title{color: black;
+                                                           background:grey;
+                                                   
+                                                   }")),
+                                #   fluidRow(column(12,div(style = "height:25px",  wellPanel(style = "padding: .5px;")
                                                                                             
-                                                                                            ))),
+                                #                                                            ))),
                                    fluidRow( column(12,
                                                     column(8,leafletOutput("tract_map")),
                                                     column(4,plotlyOutput("tract_graph")))),
+                                fluidRow(
+                                  column(12,div(style = "height:225px",
+                                                #     p("county stats"),
+                                                plotlyOutput("county_graph"))))
                                  #  tableOutput("cdc_table"),
                                 #     fluidRow(column(12,offset=4,htmlOutput("Click_bounds")))
                                    # verbatimTextOutput("click_table")
