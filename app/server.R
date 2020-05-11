@@ -99,17 +99,24 @@ observeEvent(input$county_map_shape_click,{
   popup<-paste(
     "<div>",
     "<h3>",
-    lara$FacilityName,
+    lara_only_one_county$FacilityName,
     "</h3>",
     "Address: ",
-    lara$address,
+    lara_only_one_county$address,
     "<br>",
     "Capacity: ",
-    lara$Capacity,
+    lara_only_one_county$Capacity,
     "<br>",
     "Parent Org: ",
-    lara$parent_org
-    
+    lara_only_one_county$parent_org,
+    "<br>",
+    "lat: ",
+    lara_only_one_county$lat,
+    "lon: ",
+    lara_only_one_county$lon,
+    "County: ",
+    lara_only_one_county$NAME
+     
   )
   
   
